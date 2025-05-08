@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT Grupo CodeX5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            font-size: 20px;
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #resultado {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>¡Piedra, Papel o Tijeras!</h1>
+    <h2>Grupo CodeX5</h2>
+    <button onclick="jugar('piedra')">🪨 Piedra</button>
+    <button onclick="jugar('papel')">📄 Papel</button>
+    <button onclick="jugar('tijeras')">✂️ Tijeras</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        // Variables globales para contar rondas y resultados
+        let rondas = 0;
+        let victorias = 0;
+        let derrotas = 0;
+
+        function jugar(eleccionUsuario) {
+            const opciones = ['piedra', 'papel', 'tijeras'];
+            const eleccionComputadora = opciones[Math.floor(Math.random() * 3)];
+
+            let resultado = '';
+
+            if (eleccionUsuario === eleccionComputadora) {
+                resultado = '¡Empate! 😐';
+            } else if (
+                (eleccionUsuario === 'piedra' && eleccionComputadora === 'tijeras') ||
+                (eleccionUsuario === 'papel' && eleccionComputadora === 'piedra') ||
+                (eleccionUsuario === 'tijeras' && eleccionComputadora === 'papel')
+            ) {
+                resultado = '¡Ganaste! 🎉';
+                victorias++;
+            } else {
+                resultado = 'Perdiste 😢';
+                derrotas++;
+            }
+
+            rondas++;
+
+            document.getElementById('resultado').innerHTML = `
+                Ronda ${rondas} <br><br>
+                Tú elegiste: ${eleccionUsuario} <br>
+                La computadora eligió: ${eleccionComputadora} <br><br>
+                <strong>${resultado}</strong>
+            `;
+
+            // Si ya jugaste 3 rondas, mostrar resumen
+            if (rondas === 3) {
+                document.getElementById('resultado').innerHTML += `
+                    <hr>
+                    <strong>Fin del juego 🎮</strong> <br><br>
+                    Ganaste: ${victorias} vez/veces <br>
+                    Perdiste: ${derrotas} vez/veces <br><br>
+                    <em>Recarga la página para volver a jugar</em>
+                `;
+
+                // Desactivar los botones después de 3 rondas
+                const botones = document.querySelectorAll('button');
+                botones.forEach(boton => boton.disabled = true);
+            }
+        }
+    </script>
+</body>
+</html>
