@@ -33,6 +33,8 @@
     <button onclick="jugar('piedra')">🪨 Piedra</button>
     <button onclick="jugar('papel')">📄 Papel</button>
     <button onclick="jugar('tijeras')">✂️ Tijeras</button>
+    <br>
+    <button id="reiniciar" onclick="reiniciarJuego()" style="display: none;">🔁 Jugar de nuevo</button>
 
     <div id="resultado"></div>
 
@@ -78,13 +80,29 @@
                     <strong>Fin del juego 🎮</strong> <br><br>
                     Ganaste: ${victorias} vez/veces <br>
                     Perdiste: ${derrotas} vez/veces <br><br>
-                    <em>Recarga la página para volver a jugar</em>
+                    <em>Presiona el boton para volver a jugar</em>
                 `;
 
-                // Desactivar los botones después de 3 rondas
                 const botones = document.querySelectorAll('button');
-                botones.forEach(boton => boton.disabled = true);
+                botones.forEach(boton => {
+                    if (boton.id !== "reiniciar") {
+                        boton.disabled = true;
+                    }
+                });
+                document.getElementById('reiniciar').style.display = 'inline-block';
             }
+        }
+
+        function reiniciarJuego() {
+            rondas = 0;
+            victorias = 0;
+            derrotas = 0;
+            document.getElementById('resultado').innerHTML = '';
+            const botones = document.querySelectorAll('button');
+            botones.forEach(boton => {
+                boton.disabled = false;
+            });
+            document.getElementById('reiniciar').style.display = 'none';
         }
     </script>
 </body>
