@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tour del Caballo - Visualización</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      margin: 0;
+      padding: 30px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #tablero {
+      display: grid;
+      grid-template-columns: repeat(8, 48px);
+      grid-template-rows: repeat(8, 48px);
+      gap: 2px;
+      margin: 20px auto;
+      width: fit-content;
+      border: 2px solid #333;
+      background: #222;
+    }
+    .casilla {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      box-sizing: border-box;
+      transition: background 0.2s;
+    }
+    .blanco { background: #f0d9b5; }
+    .negro { background: #b58863; }
+    .visitada { background: #aee9a7 !important; }
+    .caballo { font-size: 28px; }
+    button {
+      margin: 10px 5px;
+      padding: 10px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background: #333;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #444; }
+    #mensaje {
+      margin-top: 18px;
+      font-size: 18px;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tour del Caballo ♞</h1>
+  <div id="tablero"></div>
+  <div>
+    <button onclick="iniciarTour()">Iniciar Tour</button>
+    <button onclick="reiniciarTour()">Reiniciar</button>
+  </div>
+  <div id="mensaje"></div>
+  <script>
+    const N = 8;
+    const movimientosX = [2, 1, -1, -2, -2, -1, 1, 2];
+    const movimientosY = [1, 2, 2, 1, -1, -2, -2, -1];
+    let tablero = [];
+    let terminado = false;
+
+    function crearTablero() {
+      const contenedor = document.getElementById("tablero");
+      contenedor.innerHTML = "";
+      tablero = [];
+      terminado = false;
+      for (let i = 0; i < N; i++) {
+        tablero[i] = [];
+        for (let j = 0; j < N; j++) {
+          const casilla = document.createElement("div");
+          casilla.className = `casilla ${(i + j) % 2 === 0 ? "blanco" : "negro"}`;
+          casilla.id = `casilla-${i}-${j}`;
+          tablero[i][j] = -1;
+          contenedor.appendChild(casilla);
+        }
+      }
+    }
+
+    function esValido(x, y) {
+      return x >= 0 && x < N && y >= 0 && y < N && tablero[x][y] === -1;
+    }
+
+    // Calcula el grado de una casilla (número de movimientos válidos disponibles desde esa posición)
+    function calcularGrado(x, y) {
+      let grado = 0;
+      for (let i = 0; i < 8; i++) {
+        const siguienteX = x + movimientosX[i];
+        const siguienteY = y + movimientosY[i];
+        if (esValido(siguienteX, siguienteY)) {
+          grado++;
+        }
+      }
+      return grado;
+    }
+
+    // Actualiza la visualización en cada paso
+    function actualizarTablero(x, y, movimiento) {
+      for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N; j++) {
+          const celda = document.getElementById(`casilla-${i}-${j}`);
+          if (tablero[i][j] !== -1) {
+            celda.classList.add("visitada");
+            celda.innerHTML = tablero[i][j] + 1;
+          } else {
+            celda.classList.remove("visitada");
+            celda.innerHTML = "";
+          }
+        }
+      }
+      // Muestra caballo en posicion actual
+      const celdaActual = document.getElementById(`casilla-${x}-${y}`);
+      celdaActual.innerHTML = `<span class='caballo'>♞</span>`;
+    }
+
+    // Retraso para la animación
+    function esperar(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function resolverSaltoCaballo(x, y, movimiento) {
+      if (terminado) return true;
+
+      tablero[x][y] = movimiento;
+      actualizarTablero(x, y, movimiento);
+      await esperar(200); // Retraso de 200ms para la animación
+
+      if (movimiento === N * N - 1) {
+        terminado = true;
+        document.getElementById("mensaje").textContent = "✅ ¡Recorrido completado con éxito!";
+        return true;
+      }
+
+      // Crear una lista de movimientos posibles con su grado
+      let movimientos = [];
+      for (let i = 0; i < 8; i++) {
+        const siguienteX = x + movimientosX[i];
+        const siguienteY = y + movimientosY[i];
+        if (esValido(siguienteX, siguienteY)) {
+          const grado = calcularGrado(siguienteX, siguienteY);
+          movimientos.push({ indice: i, grado: grado, x: siguienteX, y: siguienteY });
+        }
+      }
+
+      // Ordenar movimientos por grado (menor grado primero - heurística de Warnsdorff)
+      movimientos.sort((a, b) => a.grado - b.grado);
+
+      for (let mov of movimientos) {
+        if (terminado) return true;
+        const siguienteX = mov.x;
+        const siguienteY = mov.y;
+        const exito = await resolverSaltoCaballo(siguienteX, siguienteY, movimiento + 1);
+        if (exito) return true;
+        if (!terminado) {
+          tablero[siguienteX][siguienteY] = -1;
+          actualizarTablero(x, y, movimiento);
+          await esperar(200);
+        }
+      }
+
+      if (!terminado) {
+        tablero[x][y] = -1;
+      }
+      return false;
+    }
+
+    async function iniciarTour() {
+      crearTablero();
+      document.getElementById("mensaje").textContent = "⌛ Recorriendo...";
+      tablero[0][0] = 0;
+      const exito = await resolverSaltoCaballo(0, 0, 0);
+      if (!exito && !terminado) {
+        document.getElementById("mensaje").textContent = "❌ No se encontró solución.";
+      }
+    }
+
+    function reiniciarTour() {
+      terminado = false;
+      crearTablero();
+      document.getElementById("mensaje").textContent = "Tablero reiniciado. Presiona 'Iniciar Tour' para comenzar.";
+    }
+
+    window.onload = crearTablero;
+  </script>
+</body>
+</html>
