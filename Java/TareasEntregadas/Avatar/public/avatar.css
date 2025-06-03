@@ -1,0 +1,130 @@
+body {
+    background: linear-gradient(120deg, #e0c3a3 0%, #b5c99a 100%);
+    color: #3e2c18;
+    font-family: 'Noto Serif JP', 'Serif', 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+    background-blend-mode: multiply;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 32px;
+    letter-spacing: 2px;
+    color: #7c5c2e;
+    text-shadow: 0 2px 8px #e0c3a3, 0 0 12px #b5c99a;
+    font-family: 'Noto Serif JP', 'Serif', 'Georgia', serif;
+    border-bottom: 3px solid #b5c99a;
+    padding-bottom: 10px;
+}
+
+section {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(60, 40, 20, 0.13);
+    margin: 32px auto;
+    padding: 32px 24px;
+    max-width: 440px;
+    min-width: 280px;
+    border: 2px solid #b5c99a;
+    position: relative;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    color: #4e6e58;
+    margin-bottom: 18px;
+    font-family: 'Noto Serif JP', 'Serif', 'Georgia', serif;
+    letter-spacing: 1px;
+}
+
+label {
+    margin-right: 16px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #7c5c2e;
+    font-family: 'Noto Serif JP', 'Serif', 'Georgia', serif;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+input[type="radio"] {
+    accent-color: #4e6e58;
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+button {
+    background: linear-gradient(90deg, #b5c99a 0%, #e0c3a3 100%);
+    color: #3e2c18;
+    border: 1.5px solid #7c5c2e;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 8px 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #b5c99a44;
+    transition: background 0.2s, transform 0.2s, border 0.2s;
+    font-family: 'Noto Serif JP', 'Serif', 'Georgia', serif;
+    display: inline-block;
+}
+button:hover {
+    background: linear-gradient(90deg, #e0c3a3 0%, #b5c99a 100%);
+    border: 1.5px solid #4e6e58;
+    transform: scale(1.05);
+}
+
+#mensajes {
+    background: rgba(181, 201, 154, 0.18);
+    color: #3e2c18;
+    border-left: 5px solid #4e6e58;
+    margin-top: 18px;
+    font-size: 1.1rem;
+    min-height: 40px;
+    border-radius: 8px;
+    padding: 12px 18px;
+    box-shadow: 0 2px 8px #b5c99a22;
+    font-family: 'Noto Serif JP', 'Serif', 'Georgia', serif;
+    text-align: center;
+}
+
+#personaje-jugador, #personaje-enemigo {
+    font-weight: bold;
+    color: #4e6e58;
+    text-shadow: 0 0 8px #e0c3a3, 0 0 12px #b5c99a;
+    font-family: 'Noto Serif JP', 'Serif', 'Georgia', serif;
+}
+
+#personaje-enemigo {
+    color: #7c5c2e;
+    text-shadow: 0 0 8px #b5c99a, 0 0 12px #e0c3a3;
+}
+
+section:before {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 54px;
+    height: 54px;
+    background: url('https://i.imgur.com/8QfQw2v.png') no-repeat center/contain;
+    opacity: 0.18;
+    z-index: 1;
+}
+
+@media (max-width: 600px) {
+    section {
+        max-width: 98vw;
+        padding: 18px 4vw;
+    }
+    h1 {
+        font-size: 1.3rem;
+    }
+}
