@@ -1,31 +1,28 @@
 from logger_base import log
-
 class Persona:
-    def __init__(self, id_persona=None, nombre=None, apellido=None, email=None):
-        self._id_persona = id_persona
-        self._nombre = nombre
-        self._apellido = apellido
-        self._email = email
-    
+    def __init__(self,id_persona = None, nombre= None,apellido= None, email= None):
+        self.id_persona = id_persona
+        self.nombre = nombre
+        self.apellido = apellido
+        self.email = email
+
     def __str__(self):
         return f'''
-            Id Persona: {self._id_persona},
-            Nombre: {self._nombre},
-            Apellido: {self._apellido},
-            Email:{self._email}
-'''
+        Id: {self.id_persona},
+        Nombre: {self._nombre},
+        Apellido: {self._apellido},
+        Email: {self._email}
+        '''
     
-    # Metodos Getters and Setters
-    # Id Pesona
+    #Metodos Getters y Setters
     @property
     def id_persona(self):
-        return self._id_persona
+        return self._id_persona   
     
     @id_persona.setter
     def id_persona(self, id_persona):
         self._id_persona = id_persona
-    
-    # Nombre
+
     @property
     def nombre(self):
         return self._nombre
@@ -34,16 +31,14 @@ class Persona:
     def nombre(self, nombre):
         self._nombre = nombre
 
-    # Apellido
     @property
     def apellido(self):
         return self._apellido
     
     @apellido.setter
     def apellido(self, apellido):
-        self._apellido = apellido
-
-    # Email
+        self._apellido = apellido  
+    
     @property
     def email(self):
         return self._email
@@ -52,10 +47,12 @@ class Persona:
     def email(self, email):
         self._email = email
 
+
+
 if __name__ == '__main__':
-    persona1 = Persona(1, 'Juan', 'Perez', 'jperez@mail.com')
+    persona1 = Persona(1, 'Juan', 'Perez', 'j.perez@mail.com')
     log.debug(persona1)
-    persona2 = Persona(nombre='Jose', apellido='Lepez', email='ljose@mail.com')
+    persona2 = Persona(nombre='Jose', apellido='Lopez', email='l.jose@mail.com')
     log.debug(persona2)
-    persona1 = Persona(id_persona=1)
+    persona3 = Persona(id_persona= 1)
     log.debug(persona1)

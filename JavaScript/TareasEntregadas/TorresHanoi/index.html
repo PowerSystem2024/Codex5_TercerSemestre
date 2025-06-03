@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Torres de Hanoi Visual</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #333;
+    }
+    .torres {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px 0;
+    }
+    .torre {
+      background: #ddd;
+      border-radius: 8px;
+      width: 120px;
+      height: 250px;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      padding: 10px 0;
+      position: relative;
+    }
+    .torre::before {
+      content: attr(data-nombre);
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      font-size: 18px;
+      color: #555;
+    }
+    .disco {
+      height: 24px;
+      margin: 4px 0;
+      border-radius: 6px;
+      background: #4e8cff;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      transition: width 0.3s;
+    }
+    #pasos {
+      margin-top: 30px;
+      text-align: left;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px #0001;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background: #4e8cff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #2563a6;
+    }
+    input[type="number"] {
+      width: 60px;
+      padding: 6px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Torres de Hanoi</h1>
+  <h2>CodeX5</h2>
+  <label>
+    Número de discos:
+    <input type="number" id="numDiscos" min="1" max="8" value="3">
+  </label>
+  <button onclick="iniciar()">Iniciar</button>
+  <div class="torres">
+    <div class="torre" id="torreA" data-nombre="A"></div>
+    <div class="torre" id="torreB" data-nombre="B"></div>
+    <div class="torre" id="torreC" data-nombre="C"></div>
+  </div>
+  <button onclick="pasoAnterior()">⏮ Paso anterior</button>
+  <button onclick="siguientePaso()">Siguiente paso ⏭</button>
+  <div id="pasos"></div>
+  <script>
+    let movimientos = [];
+    let estadoTorres = { A: [], B: [], C: [] };
+    let pasoActual = 0;
+    let numDiscos = 3;
+
+    function torresDeHanoiVisual(n, origen, destino, auxiliar) {
+      if (n === 1) {
+        movimientos.push({ disco: 1, de: origen, a: destino });
+        return;
+      }
+      torresDeHanoiVisual(n - 1, origen, auxiliar, destino);
+      movimientos.push({ disco: n, de: origen, a: destino });
+      torresDeHanoiVisual(n - 1, auxiliar, destino, origen);
+    }
+
+    function iniciar() {
+      numDiscos = parseInt(document.getElementById('numDiscos').value, 10);
+      movimientos = [];
+      estadoTorres = { A: [], B: [], C: [] };
+      for (let i = numDiscos; i >= 1; i--) {
+        estadoTorres.A.push(i);
+      }
+      estadoTorres.B = [];
+      estadoTorres.C = [];
+      pasoActual = 0;
+      torresDeHanoiVisual(numDiscos, 'A', 'C', 'B');
+      mostrarTorres();
+      mostrarPasos();
+    }
+
+    function mostrarTorres() {
+      ['A', 'B', 'C'].forEach(torre => {
+        const div = document.getElementById('torre' + torre);
+        div.innerHTML = '';
+        estadoTorres[torre].forEach(disco => {
+          const discoDiv = document.createElement('div');
+          discoDiv.className = 'disco';
+          discoDiv.style.width = (40 + disco * 20) + 'px';
+          discoDiv.textContent = disco;
+          discoDiv.style.background = `hsl(${200 + disco * 20}, 80%, 60%)`;
+          div.appendChild(discoDiv);
+        });
+      });
+    }
+
+    function mostrarPasos() {
+      const pasosDiv = document.getElementById('pasos');
+      let html = `<b>Paso ${pasoActual} de ${movimientos.length}</b><br>`;
+      html += '<ol>';
+      for (let i = 0; i < movimientos.length; i++) {
+        const mov = movimientos[i];
+        html += `<li${i === pasoActual - 1 ? ' style="font-weight:bold;color:#2563a6;"' : ''}>Mover disco ${mov.disco} de ${mov.de} a ${mov.a}</li>`;
+      }
+      html += '</ol>';
+      pasosDiv.innerHTML = html;
+    }
+
+    function siguientePaso() {
+      if (pasoActual >= movimientos.length) return;
+      const mov = movimientos[pasoActual];
+      // Remover disco del origen
+      const disco = estadoTorres[mov.de].pop();
+      // Agregar disco al destino
+      estadoTorres[mov.a].push(disco);
+      pasoActual++;
+      mostrarTorres();
+      mostrarPasos();
+    }
+
+    function pasoAnterior() {
+      if (pasoActual <= 0) return;
+      pasoActual--;
+      const mov = movimientos[pasoActual];
+      // Remover disco del destino
+      const disco = estadoTorres[mov.a].pop();
+      // Agregar disco al origen
+      estadoTorres[mov.de].push(disco);
+      mostrarTorres();
+      mostrarPasos();
+    }
+
+    // Inicializar al cargar
+    window.onload = iniciar;
+  </script>
+</body>
+</html>

@@ -1,14 +1,13 @@
 import psycopg2 as bd
-# psycopg2 as db es otra manera de importarlo
 from logger_base import log
 import sys
 
 class Conexion:
-    _DATABASE = 'test_bd'
-    _USERNAME = 'postgres'
-    _PASSWORD = 'admin'
-    _DB_PORT = '5432'
-    _HOST = '127.0.0.1'
+    _DATABASE = "test_bd"
+    _USERNAME = "postgres"
+    _PASSWORD = "admin"
+    _DB_PORT = 5432
+    _HOST = "127.0.0.1"
     _conexion = None
     _cursor = None
 
@@ -23,12 +22,13 @@ class Conexion:
                                            database=cls._DATABASE)
                 log.debug(f'Conexion exitosa: {cls._conexion}')
                 return cls._conexion
-            except Exception as e:
+            except bd.Error as e:
                 log.error(f'Ocurrio un error: {e}')
+                sys.exit()
         else:
             return cls._conexion
-            
-            
+
+
     @classmethod
     def obtenerCursor(cls):
         if cls._cursor is None:
@@ -37,11 +37,13 @@ class Conexion:
                 log.debug(f'Se abrio correctamente el cursor: {cls._cursor}')
                 return cls._cursor
             except Exception as e:
-                log.error(f'Ocurrio un error{e}')
+                log.error(f'Ocurrio un error: {e}')
                 sys.exit()
         else:
             return cls._cursor
             
+
+
 if __name__ == '__main__':
     Conexion.obtenerConexion()
     Conexion.obtenerCursor()
