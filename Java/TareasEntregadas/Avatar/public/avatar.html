@@ -39,12 +39,31 @@
         </section>
 
         <section id="mensajes">
-            <p>Tu personaje ataco con todo el poder del Fuego🔥, el personaje del enemigo atacó con el medio poder de la TIERRA🌱 - GANASTE🎊</p>
+            
         </section>
 
         <section id="reiniciar">
             <button id="boton-reiniciar">reiniciar</button>
         </section>
-        <script src="./js/avatar.js"></script>  
+        <script src="./js/avatar.js"></script> 
+        
+        <button id="boton-reglas" style="position: fixed; top: 10px; right: 10px; z-index: 999;">📜 Reglas del juego</button>
+
+<div id="seccion-reglas" style="display: none; position: fixed; top: 50px; right: 10px; background-color: #f9f9f9; border: 2px solid #ccc; padding: 15px; max-width: 300px; z-index: 1000; border-radius: 10px;">
+    <h3>Reglas del juego</h3>
+    <ul>
+        <li>Primero selecciona un personaje.</li>
+        <li>Tú y el enemigo tienen 3 vidas.</li>
+        <li>Ataques:
+            <ul>
+                <li>Patada gana a Puño</li>
+                <li>Puño gana a Barrida</li>
+                <li>Barrida gana a Patada</li>
+            </ul>
+        </li>
+    </ul>
+    <button id="cerrar-reglas">Cerrar</button>
+</div>
+
     </body>
 </html>
