@@ -75,3 +75,6 @@
 04:27:38 PM:ERROR [conexion.py:40] Ocurrio un error'NoneType' object has no attribute 'cursor'
 04:30:34 PM:DEBUG [conexion.py:24] Conexion exitosa: <connection object at 0x0000020E4896B450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
 04:30:34 PM:DEBUG [conexion.py:37] Se abrio correctamente el cursor: <cursor object at 0x0000020E4A6BEEA0; closed: 0>
+08:40:15 PM:ERROR [conexion.py:40] Ocurrio un error al obtener el pool: 
+08:41:04 PM:ERROR [conexion.py:41] Ocurrio un error al obtener el pool: 
+08:41:12 PM:ERROR [conexion.py:41] Ocurrio un error al obtener el pool: 
