@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Leccion02/ArgumentosVariables/ArgumentosVariables.iml" filepath="$PROJECT_DIR$/Leccion02/ArgumentosVariables/ArgumentosVariables.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion03/AutoboxinUnboxing/AutoboxinUnboxing.iml" filepath="$PROJECT_DIR$/Leccion03/AutoboxinUnboxing/AutoboxinUnboxing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion02/BloquesInicializacion/BloquesInicializacion.iml" filepath="$PROJECT_DIR$/Leccion02/BloquesInicializacion/BloquesInicializacion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion05/ClaseObject/ClaseObject.iml" filepath="$PROJECT_DIR$/Leccion05/ClaseObject/ClaseObject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion05/ClasesAbstractas/ClasesAbstractas.iml" filepath="$PROJECT_DIR$/Leccion05/ClasesAbstractas/ClasesAbstractas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Codex5_TercerSemestre.iml" filepath="$PROJECT_DIR$/Codex5_TercerSemestre.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion05/ConversionObjetos/ConversionObjetos.iml" filepath="$PROJECT_DIR$/Leccion05/ConversionObjetos/ConversionObjetos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion02/Enumeraciones/Enumeraciones.iml" filepath="$PROJECT_DIR$/Leccion02/Enumeraciones/Enumeraciones.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion03/ForEach/ForEach.iml" filepath="$PROJECT_DIR$/Leccion03/ForEach/ForEach.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion01/Leccion01.iml" filepath="$PROJECT_DIR$/Leccion01/Leccion01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion06/Leccion06.iml" filepath="$PROJECT_DIR$/Leccion06/Leccion06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion09/Leccion09.iml" filepath="$PROJECT_DIR$/Leccion09/Leccion09.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Leccion03/ModificadoresAcceso/ModificadoresAcceso.iml" filepath="$PROJECT_DIR$/Leccion03/ModificadoresAcceso/ModificadoresAcceso.iml" />
+    </modules>
+  </component>
+</project>

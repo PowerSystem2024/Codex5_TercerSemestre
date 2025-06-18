@@ -2,6 +2,12 @@ let ataqueJugador
 let ataqueEnemigo
 
 function iniciarjuego() {
+    let botonReiniciar = document.getElementById('boton-reiniciar')
+    botonReiniciar.addEventListener('click', reiniciarJuego)
+    function reiniciarJuego() {
+    location.reload();
+    }
+    
     let botonPersonajeJugador = document.getElementById('boton-personaje');
     botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador);
     
@@ -59,8 +65,52 @@ function ataqueAleatorioEnemigo() {
     }else {
         ataqueEnemigo = 'Barrida'
     }
+
+    combate();
 }
 
+function combate(){
+    //COMBATE
+    if (ataqueJugador == ataqueEnemigo) { 
+        crearMensaje("EMPATE")
+    } else if(ataqueJugador == 'Punio' && ataqueEnemigo == 'Barrida') {
+        crearMensaje("GANASTE")    
+    }else if(ataqueJugador == 'Patada' && ataqueEnemigo == 'Punio'){
+        crearMensaje("GANASTE")
+    } else if(ataqueJugador == 'Barrida' && ataqueEnemigo == 'Patada') {
+        crearMensaje("GANASTE")      
+    } else {
+        crearMensaje("PERDISTE")       
+    }
 
+}
+
+function crearMensaje(resultado){
+    let sectionMensajes = document.getElementById('mensajes');
+    let parrafo =  document.createElement('p')
+
+    parrafo.innerHTML = 'Tu personaje ataco con ' + ataqueJugador + ', el personaje del enemigo atacó con  ' + ataqueEnemigo + ' ' + resultado
+
+    sectionMensajes.appendChild(parrafo);
+}
+
+function aleatorio (min, max){
+     return Math.floor(Math.random() * (max - min +1) + min)
+}
 
 window.addEventListener('load', iniciarjuego);
+
+// Mostrar/ocultar las reglas del juego
+window.addEventListener('load', () => {
+    const botonReglas = document.getElementById('boton-reglas');
+    const seccionReglas = document.getElementById('seccion-reglas');
+    const botonCerrar = document.getElementById('cerrar-reglas');
+
+    botonReglas.addEventListener('click', () => {
+        seccionReglas.style.display = seccionReglas.style.display === 'none' ? 'block' : 'none';
+    });
+
+    botonCerrar.addEventListener('click', () => {
+        seccionReglas.style.display = 'none';
+    });
+});

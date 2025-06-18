@@ -24,4 +24,22 @@ El DOM (Document Object Model) es la estructura que representa los elementos de 
 3. Elige un ataque y observa el resultado.
 4. Reinicia la partida cuando lo desees.
 
+## Reglas del juego:
+   - Tanto tú como el enemigo tienen **3 vidas**.
+   - Ganas o pierdes vidas dependiendo del resultado de cada ataque.
+   - Los ataques posibles son:
+     - 👊 Puño
+     - 🦶 Patada
+     - 🦵 Barrida
+
+## Lógica de combate:
+   El juego funciona con una lógica tipo "piedra, papel o tijera":
+   - **Puño gana a Barrida**
+   - **Patada gana a Puño**
+   - **Barrida gana a Patada**
+   - Si ambos atacan con el mismo movimiento, es un **EMPATE**
+
+   ## Fin del juego:
+   - El primero en perder las 3 vidas **pierde la partida**.
+   - Puedes reiniciar la partida en cualquier momento con el botón **Reiniciar**.
 ---
