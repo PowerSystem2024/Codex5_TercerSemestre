@@ -114,7 +114,6 @@ section:before {
     transform: translateX(-50%);
     width: 54px;
     height: 54px;
-    background: url('https://i.imgur.com/8QfQw2v.png') no-repeat center/contain;
     opacity: 0.18;
     z-index: 1;
 }
